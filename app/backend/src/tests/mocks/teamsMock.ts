@@ -1,6 +1,6 @@
 import TeamModel from "../../database/models/TeamModel";
 
-const teamsMock: TeamModel[] = <TeamModel[]>[
+export const teamsMock: TeamModel[] = <TeamModel[]>[
   {
     "id": 1,
     "teamName": "Avaí/Kindermann"
@@ -67,4 +67,7 @@ const teamsMock: TeamModel[] = <TeamModel[]>[
   }
 ]
 
-export default teamsMock;
+export const teamMockId = {
+  "id": 5,
+  "teamName": "Cruzeiro"
+};

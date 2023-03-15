@@ -6,9 +6,8 @@ import chaiHttp = require('chai-http');
 import { app } from '../app';
 
 import TeamModel from '../database/models/TeamModel';
-import TeamsService from '../api/services/teamsService';
 
-import teamsMock from './mocks/teamsMock';
+import { teamsMock, teamMockId } from './mocks/teamsMock';
 
 import { Response } from 'superagent';
 import { Model } from 'sequelize';
@@ -25,9 +24,18 @@ describe('Endopoint /teams: Testando a camada Service', () => {
 
     expect(chaiHttpResponse.status).to.equal(200);
     expect(chaiHttpResponse.body).to.deep.equal(teamsMock);
+
+    (Model.findAll as sinon.SinonStub).restore();
   });
 
-  afterEach(()=>{
-    (Model.findAll as sinon.SinonStub).restore();
-  })
+  it('Verifica se retorna um time específico encontrado pelo ID', async () => {
+    sinon.stub(Model, "findOne").resolves(teamMockId as  TeamModel);
+
+    const chaiHttpResponse = await chai.request(app).get('/teams/5');
+
+    expect(chaiHttpResponse.status).to.equal(200);
+    expect(chaiHttpResponse.body).to.deep.equal(teamMockId);
+
+    (Model.findOne as sinon.SinonStub).restore();
+  });
 });
