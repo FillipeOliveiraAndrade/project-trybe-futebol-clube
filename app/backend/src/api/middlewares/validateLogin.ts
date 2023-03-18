@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import HttpException from '../../utils/http.exception';
+import HttpException from '../utils/http.exception';
 
 class ValidateLogin {
   public static checkLogin = (req: Request, _res: Response, next: NextFunction) => {

@@ -8,4 +8,6 @@ export interface ILoginService {
     email: string,
     password: string
   }): Promise<ILogin>
+
+  loginRole(token: string): Promise<ILogin>;
 }
