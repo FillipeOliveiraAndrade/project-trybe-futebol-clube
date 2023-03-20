@@ -1,13 +1,10 @@
-export type ILogin = {
-  type: number | null,
-  message: string,
-};
+import { IService } from './IService';
 
 export interface ILoginService {
   userLogin(loginData: {
     email: string,
     password: string
-  }): Promise<ILogin>
+  }): Promise<IService>
 
-  loginRole(token: string): Promise<ILogin>;
+  loginRole(token: string): Promise<IService>;
 }

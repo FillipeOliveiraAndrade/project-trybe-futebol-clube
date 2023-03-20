@@ -2,14 +2,15 @@ import { ModelStatic } from 'sequelize';
 import * as jwt from 'jsonwebtoken';
 import * as bcrypt from 'bcryptjs';
 import UserModel from '../../database/models/UserModel';
-import { ILogin, ILoginService } from '../interfaces/ILogin';
+import { ILoginService } from '../interfaces/ILogin';
 import { generateToken, validateToken } from '../utils/jwt';
+import { IService } from '../interfaces/IService';
 
 class LoginService implements ILoginService {
   protected model: ModelStatic<UserModel> = UserModel;
   private messageError = 'Invalid email or password';
 
-  public async userLogin(loginData: { email: string, password: string }): Promise<ILogin> {
+  public async userLogin(loginData: { email: string, password: string }): Promise<IService> {
     const { email, password } = loginData;
 
     const user = await this.model.findOne({ where: { email } });
@@ -28,7 +29,7 @@ class LoginService implements ILoginService {
     return { type: null, message: token };
   }
 
-  public async loginRole(token: string): Promise<ILogin> {
+  public async loginRole(token: string): Promise<IService> {
     const { email } = validateToken(token) as jwt.JwtPayload;
 
     const user = await this.model.findOne({ where: { email } });
