@@ -1,7 +1,7 @@
 import { ModelStatic } from 'sequelize';
 import TeamModel from '../../database/models/TeamModel';
 import MatcheModel from '../../database/models/MatcheModel';
-import { IMatchesService, Payload } from '../interfaces/IMatches';
+import { ICreateMatch, IMatchesService, Payload } from '../interfaces/IMatches';
 import { IService } from '../interfaces/IService';
 
 class MatchesService implements IMatchesService {
@@ -47,6 +47,25 @@ class MatchesService implements IMatchesService {
     );
 
     return { type: null, message: 'Match updated' };
+  }
+
+  public async createNewMatch(payload: ICreateMatch): Promise<ICreateMatch> {
+    const {
+      homeTeamId,
+      homeTeamGoals,
+      awayTeamId,
+      awayTeamGoals,
+    } = payload;
+
+    const { id } = await this.model.create({
+      homeTeamId,
+      homeTeamGoals,
+      awayTeamId,
+      awayTeamGoals,
+      inProgress: true,
+    });
+
+    return { id, ...payload, inProgress: true };
   }
 }
 

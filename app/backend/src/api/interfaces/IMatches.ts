@@ -6,9 +6,19 @@ export type Payload = {
   awayTeamGoals: number
 };
 
+export type ICreateMatch = {
+  id?: number,
+  homeTeamId: number,
+  homeTeamGoals: number,
+  awayTeamId: number,
+  awayTeamGoals: number,
+  inProgress?: boolean
+};
+
 export interface IMatchesService {
   findAll(): Promise<MatcheModel[]>
   findMatchesInProgress(query: boolean | undefined): Promise<MatcheModel[]>
   finishMatch(id: number): Promise<IService>
   updateMatche(id: number, payload: Payload): Promise<IService>
+  createNewMatch(payload: ICreateMatch): Promise<ICreateMatch>
 }
