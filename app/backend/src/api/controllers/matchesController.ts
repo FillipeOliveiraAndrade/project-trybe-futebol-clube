@@ -9,8 +9,17 @@ class MatchesController {
   }
 
   public findAllMatches = async (req: Request, res: Response) => {
-    const matches = await this.service.findAll();
-    res.status(200).json(matches);
+    const { inProgress } = req.query;
+
+    if (!inProgress) {
+      const matches = await this.service.findAll();
+      return res.status(200).json(matches);
+    }
+
+    const status = Boolean(inProgress === 'true');
+
+    const matches = await this.service.findMatchesInProgress(status);
+    return res.status(200).json(matches);
   };
 }
 

@@ -18,7 +18,7 @@ class LoginController {
       return res.status(type).json({ message });
     }
 
-    res.status(200).json({ token: message });
+    return res.status(200).json({ token: message });
   };
 
   public loginRole = async (req: Request, res: Response) => {
@@ -34,7 +34,7 @@ class LoginController {
       return res.status(type).json({ message });
     }
 
-    res.status(200).json({ role: message });
+    return res.status(200).json({ role: message });
   };
 }
 

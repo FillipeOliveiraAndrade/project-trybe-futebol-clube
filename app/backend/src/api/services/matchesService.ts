@@ -15,6 +15,18 @@ class MatchesService implements IMatchesService {
     });
     return matches;
   }
+
+  findMatchesInProgress(query: boolean | undefined): Promise<MatcheModel[]> {
+    const matches = this.model.findAll({
+      where: { inProgress: query },
+      include: [
+        { model: TeamModel, as: 'homeTeam', attributes: { exclude: ['id'] } },
+        { model: TeamModel, as: 'awayTeam', attributes: { exclude: ['id'] } },
+      ],
+    });
+
+    return matches;
+  }
 }
 
 export default MatchesService;
