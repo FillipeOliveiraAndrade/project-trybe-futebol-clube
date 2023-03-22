@@ -9,7 +9,6 @@ import TeamModel from '../database/models/TeamModel';
 
 import { teamsMock, teamMockId } from './mocks/teamsMock';
 
-import { Response } from 'superagent';
 import { Model } from 'sequelize';
 
 chai.use(chaiHttp);
