@@ -17,6 +17,11 @@ class LeaderBoardController {
     const result = await this.service.awayTeamsPerformace();
     return res.status(200).json(result);
   };
+
+  public getAllStatistics = async (_req: Request, res: Response) => {
+    const result = await this.service.getAllStatistics();
+    res.status(200).json(result);
+  };
 }
 
 export default LeaderBoardController;

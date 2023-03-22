@@ -1,7 +1,8 @@
-import { col, fn, literal, ModelStatic, ProjectionAlias } from 'sequelize';
+import { col, fn, literal, ModelStatic, ProjectionAlias, QueryTypes } from 'sequelize';
 import TeamModel from '../../database/models/TeamModel';
 import MatcheModel from '../../database/models/MatcheModel';
-import { ILeaderBoardService } from '../interfaces/ILeaderBoard';
+import { ILeaderboard, ILeaderBoardService } from '../interfaces/ILeaderBoard';
+import query from '../utils/queries';
 
 class LeaderBoardService implements ILeaderBoardService {
   protected model: ModelStatic<MatcheModel> = MatcheModel;
@@ -76,6 +77,17 @@ class LeaderBoardService implements ILeaderBoardService {
         SUM(away_team_goals = home_team_goals)) / (COUNT(away_team_id) * 3) * 100
         AS DECIMAL(5,2))`), 'efficiency'],
     ].map(([exp, alias]) => [exp, alias] as ProjectionAlias);
+  }
+
+  public async createAllStatistics(): Promise<ILeaderboard[]> {
+    const result = await this.model.sequelize?.query(query, { type: QueryTypes.SELECT });
+
+    return result as unknown as ILeaderboard[];
+  }
+
+  public async getAllStatistics(): Promise<ILeaderboard[]> {
+    const result = await this.createAllStatistics();
+    return result;
   }
 }
 

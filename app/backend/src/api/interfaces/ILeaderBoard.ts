@@ -9,11 +9,13 @@ export interface ILeaderboard {
   totalLosses: number,
   goalsFavor: number,
   goalsOwn: number,
-  goalsBalance: number,
-  efficiency: number
+  goalsBalance?: number,
+  efficiency?: number
 }
 
 export interface ILeaderBoardService {
   homeTeamsPerformace(): Promise<MatcheModel[]>;
   awayTeamsPerformace(): Promise<MatcheModel[]>;
+  createAllStatistics(): Promise<ILeaderboard[]>;
+  getAllStatistics(): Promise<ILeaderboard[]>;
 }
