@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { ILoginService } from '../interfaces/ILogin';
 import HttpException from '../utils/http.exception';
+import { ILoginService } from '../interfaces/ILogin';
 
 class LoginController {
   protected service: ILoginService;
